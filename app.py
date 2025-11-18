@@ -42,12 +42,18 @@ else:
 if __name__ == "__main__":
     parser = ArgumentParser(
        description="Separate audio into multiple stems",
-       epilog="Example: python app.py --share --listen-port 8080 --open"
+       epilog="Example: python app.py --share --listen-port 8080 --server-name 0.0.0.0 --open"
     )
     parser.add_argument(
        "--share",
        action="store_true",
        help="Enable sharing of the interface through Gradio's temporary URLs"
+    )
+    parser.add_argument(
+       "--server-name",
+       type=str,
+       default="",
+       help="The server name that the server will use (default: \"\")"
     )
     parser.add_argument(
        "--listen-port",
@@ -2365,8 +2371,7 @@ with gr.Blocks(theme = loadThemes.load_json() or "NoCrypt/miku", title = "🎵 U
 app.launch(
     share=args.share,
     favicon_path="assets/favicon.ico",
-    server_name="",
+    server_name=args.server_name,
     server_port=args.listen_port,
     inbrowser=args.open
-
 )
